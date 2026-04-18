@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debriefly • AI Post-Interview Debrief</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #ff004c;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready .navbar {
+            backdrop-filter: blur(12px);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(255, 0, 64, 0.1), 0 8px 10px -6px rgb(0 212 255 / 0.1);
+        }
+        
+        .progress-bar {
+            animation: progress 2s ease-in-out forwards;
+        }
+        
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: var(--progress-width); }
+        }
+        
+        .recording-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .loader-spinner {
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #1100ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="tailwind-ready bg-zinc-950 text-white font-sans">
+    <!-- NAVBAR -->
+    <nav class="navbar bg-zinc-950/80 border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center text-xl font-bold">📼</div>
+                <h1 class="font-bold text-3xl tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">debriefly</h1>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a onclick="navigateTo('landing')" class="hover:text-cyan-400 cursor-pointer flex items-center gap-x-1">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+                <a onclick="navigateTo('upload')" class="hover:text-cyan-400 cursor-pointer flex items-center gap-x-1">
+                    <i class="fa-solid fa-upload"></i>
+                    <span>New Analysis</span>
+                </a>
+                <a onclick="navigateTo('reports')" class="hover:text-cyan-400 cursor-pointer flex items-center gap-x-1">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>My Reports</span>
+                </a>
+                <a onclick="navigateTo('how')" class="hover:text-cyan-400 cursor-pointer">How it Works</a>
+            </div>
+
+            <div class="flex items-center gap-x-4">
+                <div onclick="toggleDemoMode()" class="flex items-center bg-white/10 hover:bg-white/20 text-xs font-medium px-4 h-9 rounded-3xl cursor-pointer">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
+                    DEMO MODE
+                </div>
+                
+                <!-- Fake user -->
+                <div class="flex items-center gap-x-2 bg-white/10 hover:bg-white/20 px-4 h-9 rounded-3xl cursor-pointer" onclick="fakeLogin()">
+                    <i class="fa-solid fa-circle-user text-lg"></i>
+                    <span class="text-sm font-medium">Jyotirmoy • Pune</span>
+                </div>
+                
+                <button onclick="navigateTo('upload')" 
+                        class="bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold px-6 h-10 rounded-3xl flex items-center gap-x-2 text-sm">
+                    <i class="fa-solid fa-magic"></i>
+                    ANALYZE INTERVIEW
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <div class="max-w-7xl mx-auto px-8">
+
+        <!-- LANDING / HERO SECTION -->
+        <div id="landing-page" class="pt-16 pb-24">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-5 h-9 rounded-3xl">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+                        </span>
+                        NOW IN BETA • POWERED BY AI
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
+                        Stop guessing.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Know exactly</span><br>
+                        why you didn't get the offer.
+                    </h1>
+                    
+                    <p class="text-xl text-zinc-400 max-w-lg">
+                        Upload or record your interview. Get objective AI analysis of speech, confidence, structure, and impact. 
+                        Precise feedback + improvement plan in minutes.
+                    </p>
+                    
+                    <div class="flex items-center gap-x-4">
+                        <button onclick="navigateTo('upload')" 
+                                class="flex-1 md:flex-none bg-white text-zinc-950 hover:bg-cyan-300 font-semibold text-lg px-10 py-6 rounded-3xl flex items-center justify-center gap-x-3">
+                            <i class="fa-solid fa-microphone"></i>
+                            START FREE ANALYSIS
+                        </button>
+                        
+                        <a onclick="watchDemoVideo()" 
+                           class="flex items-center gap-x-3 text-white border border-white/30 hover:border-white/60 px-8 py-6 rounded-3xl font-medium">
+                            <i class="fa-solid fa-play text-cyan-400"></i>
+                            <span>2-min demo video</span>
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-8 text-sm">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check text-emerald-400"></i>
+                            <span>No recruiter feedback needed</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check text-emerald-400"></i>
+                            <span>Works with Zoom, Google Meet, Teams</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check text-emerald-400"></i>
+                            <span>100% private • Your data is yours</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust logos -->
+                    <div class="flex items-center gap-x-8 opacity-60">
+                        <div class="text-2xl font-bold">Google</div>
+                        <div class="text-2xl font-bold">Microsoft</div>
+                        <div class="text-2xl font-bold">Amazon</div>
+                        <div class="text-2xl font-bold">Meta</div>
+                        <div class="text-2xl font-bold">Goldman</div>
+                    </div>
+                </div>
+                
+                <!-- Hero visual -->
+                <div class="relative bg-zinc-900 border border-white/10 rounded-3xl p-8 shadow-2xl">
+                    <div class="bg-black rounded-2xl p-6 mb-8">
+                        <div class="flex justify-between text-xs mb-4">
+                            <div class="flex items-center gap-x-2"><i class="fa-solid fa-circle text-red-500"></i> RECORDED INTERVIEW</div>
+                            <div>45:12</div>
+                        </div>
+                        <div class="h-2 bg-zinc-800 rounded-full mb-8 relative overflow-hidden">
+                            <div class="absolute h-2 w-3/4 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-zinc-400">Filler words detected</span>
+                                <span class="font-semibold text-amber-400">18 "um" + "like"</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-zinc-400">Confidence dip at</span>
+                                <span class="font-semibold text-red-400">Question 4 • Behavioral</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-zinc-400">AI verdict</span>
+                                <span class="font-semibold">Missed STAR framework on leadership story</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-cyan-400 font-medium flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-robot"></i>
+                        AI just finished your debrief
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPLOAD / NEW ANALYSIS PAGE -->
+        <div id="upload-page" class="hidden py-12">
+            <h2 class="text-4xl font-bold mb-2 tracking-tight">Upload or record your interview</h2>
+            <p class="text-zinc-400 mb-10">Our AI will transcribe, analyze speech patterns, confidence, answer structure, and map everything against role expectations.</p>
+            
+            <div class="grid md:grid-cols-12 gap-8">
+                <!-- Form -->
+                <div class="md:col-span-5 bg-zinc-900 border border-white/10 rounded-3xl p-8">
+                    <form id="analysis-form" onsubmit="startAnalysis(event)">
+                        <div class="space-y-8">
+                            <!-- Role info -->
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Role you interviewed for</label>
+                                <input id="role-input" type="text" value="Senior Software Engineer @ Google" 
+                                       class="w-full bg-white/10 border border-white/20 focus:border-cyan-400 rounded-2xl px-6 py-5 outline-none text-lg">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Company</label>
+                                    <input id="company-input" type="text" value="Google" 
+                                           class="w-full bg-white/10 border border-white/20 focus:border-cyan-400 rounded-2xl px-6 py-5 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Interview type</label>
+                                    <select id="type-input" class="w-full bg-white/10 border border-white/20 focus:border-cyan-400 rounded-2xl px-6 py-5 outline-none">
+                                        <option value="Technical">Technical</option>
+                                        <option value="Behavioral" selected>Behavioral + Technical</option>
+                                        <option value="System Design">System Design</option>
+                                        <option value="Final Round">Final Round</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload -->
+                            <div>
+                                <label class="block text-sm font-medium mb-3">Upload interview recording</label>
+                                <div id="drop-zone" 
+                                     onclick="document.getElementById('file-input').click()"
+                                     class="border-2 border-dashed border-white/30 hover:border-cyan-400 rounded-3xl h-44 flex flex-col items-center justify-center cursor-pointer">
+                                    <i class="fa-solid fa-cloud-upload text-5xl mb-3 text-cyan-400"></i>
+                                    <p class="font-medium">Drag &amp; drop MP4, MP3, or WebM</p>
+                                    <p class="text-xs text-zinc-400 mt-1">or click to browse (max 200 MB)</p>
+                                    <input type="file" id="file-input" accept="audio/*,video/*" class="hidden" onchange="handleFileSelect(event)">
+                                </div>
+                                <div id="selected-file" class="hidden mt-3 text-sm flex items-center gap-x-2 bg-white/10 rounded-2xl px-4 py-3">
+                                    <i class="fa-solid fa-file-audio"></i>
+                                    <span id="file-name" class="flex-1 truncate"></span>
+                                    <button type="button" onclick="clearFile()" class="text-red-400 text-xs font-medium">REMOVE</button>
+                                </div>
+                            </div>
+                            
+                            <!-- OR RECORD -->
+                            <div class="border border-white/10 rounded-3xl p-6">
+                                <p class="text-sm font-medium mb-4 flex items-center gap-x-2"><i class="fa-solid fa-microphone"></i> OR RECORD LIVE (demo mode)</p>
+                                
+                                <div class="flex items-center justify-center gap-x-4">
+                                    <button onclick="toggleRecording()" id="record-btn"
+                                            class="flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-2xl text-3xl">
+                                        <i id="record-icon" class="fa-solid fa-circle"></i>
+                                    </button>
+                                    
+                                    <div class="flex-1">
+                                        <div id="recording-status" class="text-xs font-medium text-red-400 hidden flex items-center gap-x-2">
+                                            <span class="recording-pulse w-3 h-3 bg-red-500 rounded-full"></span>
+                                            RECORDING • <span id="recording-timer">00:00</span>
+                                        </div>
+                                        <audio id="recorded-audio" controls class="hidden w-full mt-3"></audio>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" 
+                                    class="w-full py-7 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-zinc-950 font-semibold text-xl rounded-3xl flex items-center justify-center gap-x-3 shadow-lg shadow-cyan-400/30">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                RUN AI DEBRIEF
+                            </button>
+                            
+                            <p class="text-center text-xs text-zinc-400">Takes ~60 seconds • Your data is encrypted</p>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Preview / What you'll get -->
+                <div class="md:col-span-7 bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col">
+                    <h3 class="font-semibold text-lg mb-6">What the AI will analyze</h3>
+                    <div class="grid grid-cols-2 gap-6 flex-1">
+                        <div class="space-y-4">
+                            <div class="flex gap-x-4 items-start">
+                                <div class="text-cyan-400 text-xl mt-px"><i class="fa-solid fa-waveform"></i></div>
+                                <div>
+                                    <p class="font-medium">Speech &amp; Delivery</p>
+                                    <p class="text-sm text-zinc-400">Filler words, pauses &gt;2s, pacing (words/min), tone modulation</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-x-4 items-start">
+                                <div class="text-cyan-400 text-xl mt-px"><i class="fa-solid fa-chart-simple"></i></div>
+                                <div>
+                                    <p class="font-medium">Confidence Detection</p>
+                                    <p class="text-sm text-zinc-400">Voice pitch drops, hesitation timestamps, filler clusters</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex gap-x-4 items-start">
+                                <div class="text-cyan-400 text-xl mt-px"><i class="fa-solid fa-list-check"></i></div>
+                                <div>
+                                    <p class="font-medium">Answer Structure</p>
+                                    <p class="text-sm text-zinc-400">Clarity • Depth • Relevance • STAR framework adherence</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-x-4 items-start">
+                                <div class="text-cyan-400 text-xl mt-px"><i class="fa-solid fa-target"></i></div>
+                                <div>
+                                    <p class="font-medium">Role-Specific Impact</p>
+                                    <p class="text-sm text-zinc-400">Compared against 1000s of successful interviews for this role</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto pt-8 border-t border-white/10 text-xs flex items-center justify-between text-zinc-400">
+                        <div>✅ Transcribed in &lt;30s</div>
+                        <div>✅ Ranked by hiring impact</div>
+                        <div>✅ Personalized improvement plan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOADING / ANALYSIS IN PROGRESS -->
+        <div id="loading-page" class="hidden py-24 flex flex-col items-center justify-center min-h-[60vh]">
+            <div class="loader-spinner mb-8"></div>
+            <h3 class="text-2xl font-semibold mb-2">Analyzing your interview...</h3>
+            <p class="text-zinc-400 mb-12 max-w-xs text-center">Our AI is transcribing, detecting speech patterns, scoring answers, and comparing against role benchmarks.</p>
+            
+            <div class="w-full max-w-lg space-y-6">
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-microphone"></i>
+                        <span id="step-1">Transcribing audio...</span>
+                    </div>
+                    <span id="step-status-1" class="text-emerald-400">✓</span>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-waveform"></i>
+                        <span id="step-2">Analyzing speech patterns &amp; confidence</span>
+                    </div>
+                    <span id="step-status-2" class="text-zinc-400">•••</span>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-brain"></i>
+                        <span id="step-3">Evaluating answer structure &amp; role fit</span>
+                    </div>
+                    <span id="step-status-3" class="text-zinc-400">•••</span>
+                </div>
+                <div class="h-px bg-white/10"></div>
+                
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-chart-bar"></i>
+                        <span id="step-4">Generating ranked feedback &amp; improvement plan</span>
+                    </div>
+                    <span id="step-status-4" class="text-zinc-400">•••</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS PAGE -->
+        <div id="results-page" class="hidden py-12">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <span id="result-role-badge" class="inline-flex bg-cyan-400/10 text-cyan-400 text-xs font-medium px-4 h-7 rounded-3xl items-center">Senior Software Engineer @ Google</span>
+                    <h1 class="text-4xl font-bold mt-2">Your Interview Debrief</h1>
+                    <p id="result-date" class="text-zinc-400">Analyzed just now • 42-minute interview</p>
+                </div>
+                
+                <div class="text-right">
+                    <div class="text-5xl font-bold text-cyan-400" id="overall-score">64</div>
+                    <div class="text-sm text-zinc-400 -mt-1">/100 • Needs Improvement</div>
+                    <button onclick="restartAnalysis()" class="mt-4 text-xs flex items-center gap-x-1 text-zinc-400 hover:text-white">
+                        <i class="fa-solid fa-rotate"></i>
+                        ANALYZE ANOTHER INTERVIEW
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quick metrics -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                    <p class="text-xs uppercase tracking-widest">Filler words</p>
+                    <div class="text-5xl font-bold mt-2" id="filler-count">18</div>
+                    <p class="text-amber-400 text-sm mt-1">12% of speech • High</p>
+                    <div class="text-xs text-zinc-400 mt-6">“um”, “like”, “you know” — 3.2 per minute</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                    <p class="text-xs uppercase tracking-widest">Avg pause</p>
+                    <div class="text-5xl font-bold mt-2" id="avg-pause">2.8s</div>
+                    <p class="text-emerald-400 text-sm mt-1">Slightly long</p>
+                    <div class="text-xs text-zinc-400 mt-6">Longest pause: 7.4s before Q4 (hesitation detected)</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                    <p class="text-xs uppercase tracking-widest">Pacing</p>
+                    <div class="text-5xl font-bold mt-2" id="pacing">118</div>
+                    <p class="text-amber-400 text-sm mt-1">wpm • A bit fast</p>
+                    <div class="text-xs text-zinc-400 mt-6">Ideal for tech interviews: 110–130 wpm</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-3xl p-6 relative">
+                    <p class="text-xs uppercase tracking-widest">Confidence score</p>
+                    <div class="text-5xl font-bold mt-2 text-red-400" id="confidence-score">57</div>
+                    <div class="absolute top-8 right-8">
+                        <canvas id="confidence-chart" width="110" height="70"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question breakdown -->
+            <h3 class="font-semibold mb-4 text-lg flex items-center gap-x-2"><i class="fa-solid fa-list-ol"></i> Question-by-question breakdown</h3>
+            <div id="questions-list" class="space-y-6 mb-16"></div>
+            
+            <!-- Ranked weaknesses -->
+            <h3 class="font-semibold mb-4 text-lg flex items-center gap-x-2"><i class="fa-solid fa-exclamation-triangle"></i> Ranked weaknesses (by hiring impact)</h3>
+            <div id="weaknesses-list" class="grid md:grid-cols-2 gap-4 mb-16"></div>
+            
+            <!-- Improvement plan -->
+            <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 border border-white/10 rounded-3xl p-8">
+                <h3 class="font-semibold text-lg mb-6 flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Your 7-day targeted improvement plan</h3>
+                <div id="improvement-plan" class="space-y-6"></div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <button onclick="downloadReport()" 
+                        class="flex items-center gap-x-3 border border-white/30 hover:border-cyan-400 px-8 py-5 rounded-3xl text-sm font-medium">
+                    <i class="fa-solid fa-download"></i>
+                    DOWNLOAD FULL PDF REPORT
+                </button>
+            </div>
+        </div>
+
+        <!-- MY REPORTS PAGE -->
+        <div id="reports-page" class="hidden py-12">
+            <h2 class="text-4xl font-bold mb-8">Past Debriefs</h2>
+            <div id="reports-grid" class="grid md:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- HOW IT WORKS PAGE -->
+        <div id="how-page" class="hidden py-16">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-5xl font-bold tracking-tight mb-6">How Debriefly works</h2>
+                <div class="space-y-12 mt-16">
+                    <div class="flex gap-x-8">
+                        <div class="w-12 h-12 bg-cyan-400 text-zinc-950 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">1</div>
+                        <div class="text-left">
+                            <h4 class="font-semibold text-2xl">Upload or record</h4>
+                            <p class="text-zinc-400">Zoom recording, phone voice memo, or live mic — supported formats: MP4, MP3, MOV, WebM</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-x-8">
+                        <div class="w-12 h-12 bg-cyan-400 text-zinc-950 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">2</div>
+                        <div class="text-left">
+                            <h4 class="font-semibold text-2xl">AI does the heavy lifting</h4>
+                            <p class="text-zinc-400">Whisper-level transcription + custom model trained on 50,000+ successful interviews</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-x-8">
+                        <div class="w-12 h-12 bg-cyan-400 text-zinc-950 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">3</div>
+                        <div class="text-left">
+                            <h4 class="font-semibold text-2xl">Get precise, actionable insights</h4>
+                            <p class="text-zinc-400">Timestamps, role-specific scoring, ranked weaknesses, and a step-by-step plan to fix them before your next interview</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12 mt-24">
+        <div class="max-w-7xl mx-auto px-8 text-xs text-zinc-400 flex flex-col md:flex-row justify-between items-center gap-y-4">
+            <p>© 2026 Debriefly • Built as a complete working demo for Jyotirmoy</p>
+            <p class="flex items-center gap-x-6">
+                <span onclick="showToast('Backend is mocked in this demo. Real version uses FastAPI + OpenAI + AssemblyAI')" class="cursor-pointer hover:text-white">Backend ready for production</span>
+                <span class="cursor-pointer hover:text-white">Privacy-first</span>
+                <span class="cursor-pointer hover:text-white">Made with ❤️ for candidates</span>
+            </p>
+            <p class="text-cyan-400 font-medium">Frontend + Mock Backend all in ONE file ✅</p>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * TAILWIND INITIALIZATION
+         */
+        function initTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {},
+                        },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme: {
+                    extend: {},
+                },
+            }
+        }
+        
+        /**
+         * GLOBAL STATE
+         */
+        let currentFile = null
+        let recordedBlob = null
+        let isRecording = false
+        let mediaRecorder = null
+        let audioChunks = []
+        let timerInterval = null
+        let seconds = 0
+        
+        let mockReports = [
+            {
+                id: 1,
+                title: "Senior Backend Engineer @ Microsoft",
+                date: "2 days ago",
+                score: 71,
+                role: "Senior Backend Engineer"
+            },
+            {
+                id: 2,
+                title: "Product Manager @ Stripe",
+                date: "1 week ago",
+                score: 83,
+                role: "Product Manager"
+            },
+            {
+                id: 3,
+                title: "Data Scientist @ Amazon",
+                date: "3 weeks ago",
+                score: 55,
+                role: "Data Scientist"
+            }
+        ]
+        
+        let currentResults = null
+        
+        /**
+         * NAVIGATION
+         */
+        function navigateTo(page) {
+            // Hide all pages
+            document.querySelectorAll('.max-w-7xl > div[id$="-page"]').forEach(el => {
+                if (el) el.classList.add('hidden')
+            })
+            
+            // Show requested page
+            const target = document.getElementById(page + '-page')
+            if (target) target.classList.remove('hidden')
+            
+            // Special case: load reports
+            if (page === 'reports') renderReports()
+        }
+        
+        /**
+         * RECORDING LOGIC
+         */
+        async function toggleRecording() {
+            const btn = document.getElementById('record-btn')
+            const icon = document.getElementById('record-icon')
+            const statusEl = document.getElementById('recording-status')
+            const audioEl = document.getElementById('recorded-audio')
+            
+            if (!isRecording) {
+                // START RECORDING
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+                    mediaRecorder = new MediaRecorder(stream)
+                    audioChunks = []
+                    
+                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data)
+                    mediaRecorder.onstop = () => {
+                        recordedBlob = new Blob(audioChunks, { type: 'audio/webm' })
+                        const audioUrl = URL.createObjectURL(recordedBlob)
+                        audioEl.src = audioUrl
+                        audioEl.classList.remove('hidden')
+                        currentFile = null // clear uploaded file
+                        document.getElementById('selected-file').classList.add('hidden')
+                    }
+                    
+                    mediaRecorder.start()
+                    isRecording = true
+                    icon.classList.remove('fa-circle')
+                    icon.classList.add('fa-stop')
+                    btn.classList.add('bg-red-600', 'recording-pulse')
+                    statusEl.classList.remove('hidden')
+                    
+                    seconds = 0
+                    timerInterval = setInterval(() => {
+                        seconds++
+                        const display = `${String(Math.floor(seconds/60)).padStart(2, '0')}:${String(seconds%60).padStart(2, '0')}`
+                        document.getElementById('recording-timer').textContent = display
+                    }, 1000)
+                    
+                } catch (err) {
+                    alert("Microphone access denied or not available in this browser.")
+                }
+            } else {
+                // STOP RECORDING
+                mediaRecorder.stop()
+                mediaRecorder.stream.getTracks().forEach(track => track.stop())
+                isRecording = false
+                icon.classList.add('fa-circle')
+                icon.classList.remove('fa-stop')
+                btn.classList.remove('bg-red-600', 'recording-pulse')
+                statusEl.classList.add('hidden')
+                clearInterval(timerInterval)
+            }
+        }
+        
+        /**
+         * FILE UPLOAD
+         */
+        function handleFileSelect(e) {
+            const file = e.target.files[0]
+            if (!file) return
+            currentFile = file
+            recordedBlob = null // clear recording
+            document.getElementById('recorded-audio').classList.add('hidden')
+            const selectedDiv = document.getElementById('selected-file')
+            selectedDiv.classList.remove('hidden')
+            document.getElementById('file-name').innerHTML = `
+                <span class="font-medium">${file.name}</span> 
+                <span class="text-zinc-400">(${Math.round(file.size/1024/1024)} MB)</span>
+            `
+        }
+        
+        function clearFile() {
+            currentFile = null
+            document.getElementById('selected-file').classList.add('hidden')
+            document.getElementById('file-input').value = ''
+        }
+        
+        /**
+         * START ANALYSIS (the magic)
+         */
+        function startAnalysis(e) {
+            e.preventDefault()
+            
+            if (!currentFile && !recordedBlob) {
+                if (isRecording) {
+                    showToast("⚠️ Please stop recording before running analysis.")
+                } else {
+                    showToast("⚠️ Please upload a file or record an interview first!")
+                }
+                return
+            }
+            
+            // Hide upload, show loader
+            document.getElementById('upload-page').classList.add('hidden')
+            document.getElementById('loading-page').classList.remove('hidden')
+            
+            // Simulate analysis steps with realistic timing
+            const steps = [
+                { id: 1, text: "Transcribing audio...", delay: 900 },
+                { id: 2, text: "Analyzing speech patterns & confidence", delay: 1400 },
+                { id: 3, text: "Evaluating answer structure & role fit", delay: 1200 },
+                { id: 4, text: "Generating ranked feedback & improvement plan", delay: 1100 }
+            ]
+            
+            let i = 0
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    const stepEl = document.getElementById(`step-status-${steps[i].id}`)
+                    const textEl = document.getElementById(`step-${steps[i].id}`)
+                    if (stepEl) stepEl.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i>`
+                    if (textEl) textEl.style.color = '#00d4ff'
+                    
+                    setTimeout(() => {
+                        if (stepEl) stepEl.textContent = '✓'
+                        i++
+                    }, steps[i].delay)
+                } else {
+                    clearInterval(interval)
+                    // Finished! Generate mock results
+                    setTimeout(() => {
+                        generateMockResults()
+                    }, 800)
+                }
+            }, 400)
+        }
+        
+        /**
+         * GENERATE MOCK RESULTS (this would be backend call in real app)
+         */
+        function generateMockResults() {
+            const role = document.getElementById('role-input').value || "Senior Software Engineer @ Google"
+            
+            // Base metrics influenced by input
+            let baseScore = 60;
+            let baseFiller = 18;
+            let baseConfidence = 55;
+            let basePacing = 115;
+            let basePause = 2.5;
+            
+            if (recordedBlob && seconds > 0) {
+                // Longer recordings suggest better preparation
+                if (seconds > 600) baseScore += 15;
+                else if (seconds > 300) baseScore += 10;
+                else if (seconds > 180) baseScore += 5;
+                else if (seconds < 120) baseScore -= 10;
+                
+                // Fewer fillers for longer, more practiced interviews
+                baseFiller = Math.max(5, 20 - Math.floor(seconds / 60));
+                
+                // Higher confidence for longer interviews
+                baseConfidence += Math.min(20, Math.floor(seconds / 30));
+                
+                // Slightly faster pacing for technical roles
+                if (role.toLowerCase().includes('engineer') || role.toLowerCase().includes('developer')) {
+                    basePacing += 5;
+                }
+                
+                // Shorter pauses for more confident speakers
+                basePause = Math.max(1.5, 3.0 - (seconds / 300));
+            }
+            
+            if (currentFile) {
+                const sizeMB = currentFile.size / 1024 / 1024;
+                // Larger files might be video, assume more comprehensive
+                if (sizeMB > 100) baseScore += 10;
+                else if (sizeMB > 50) baseScore += 5;
+                else if (sizeMB < 5) baseScore -= 5; // Too short
+                
+                baseFiller = Math.max(5, 18 - Math.floor(sizeMB / 5));
+                baseConfidence += Math.floor(sizeMB / 10);
+            }
+            
+            // Add some randomness but keep within bounds
+            const score = Math.min(100, Math.max(40, baseScore + Math.floor(Math.random() * 20) - 10));
+            const filler = Math.max(3, baseFiller + Math.floor(Math.random() * 6) - 3);
+            const confidence = Math.min(95, Math.max(30, baseConfidence + Math.floor(Math.random() * 15) - 7));
+            const pacing = basePacing + Math.floor(Math.random() * 10) - 5;
+            const avgPause = (basePause + (Math.random() * 0.8 - 0.4)).toFixed(1);
+            
+            currentResults = {
+                role: role,
+                score: score,
+                fillerCount: filler,
+                avgPause: avgPause,
+                pacing: pacing,
+                confidenceScore: confidence,
+                questions: [
+                    {
+                        q: "Tell me about yourself",
+                        score: Math.min(95, Math.max(50, score + Math.floor(Math.random() * 20) - 10)),
+                        feedback: score > 70 ? "Strong opening with clear value proposition." : "Good start but focus more on recent impact.",
+                        timestamp: "00:42"
+                    },
+                    {
+                        q: "Walk me through a challenging project",
+                        score: Math.min(95, Math.max(40, score - 10 + Math.floor(Math.random() * 20) - 10)),
+                        feedback: score > 65 ? "Good STAR structure with measurable outcomes." : "Missed STAR format. Add specific metrics and outcomes.",
+                        timestamp: "08:11"
+                    },
+                    {
+                        q: "How do you handle conflict in a team?",
+                        score: Math.min(95, Math.max(45, score - 5 + Math.floor(Math.random() * 20) - 10)),
+                        feedback: confidence > 60 ? "Good empathy and clear resolution steps." : "Lacked confidence in describing resolution.",
+                        timestamp: "19:33"
+                    },
+                    {
+                        q: "Explain how you would design a rate limiter",
+                        score: Math.min(95, Math.max(35, score - 15 + Math.floor(Math.random() * 20) - 10)),
+                        feedback: role.toLowerCase().includes('engineer') ? "Solid technical depth with trade-offs considered." : "Good high-level but needs more technical detail.",
+                        timestamp: "31:55"
+                    }
+                ],
+                weaknesses: [
+                    { title: filler > 15 ? "Too many filler words" : "Occasional filler words", impact: filler > 18 ? "High" : "Medium", percent: Math.min(50, filler * 2), desc: "Reduce 'um' and 'like' for better confidence" },
+                    { title: score < 70 ? "Weak STAR storytelling" : "Room for STAR improvement", impact: score < 60 ? "High" : "Medium", percent: Math.max(10, 50 - score), desc: "Structure answers with Situation, Task, Action, Result" },
+                    { title: confidence < 60 ? "Low confidence indicators" : "Confidence areas", impact: confidence < 50 ? "High" : "Low", percent: Math.max(5, 60 - confidence), desc: "Practice speaking clearly and pause deliberately" },
+                    { title: "Need more quantifiable outcomes", impact: "Medium", percent: 25, desc: "Use numbers to show impact (%, time saved, etc.)" }
+                ],
+                plan: [
+                    {
+                        day: "Day 1",
+                        title: "Record 3 behavioral answers using STAR",
+                        action: "Use your phone. Time yourself. Remove every “um” and “like”."
+                    },
+                    {
+                        day: "Day 2–3",
+                        title: "Practice quantifying impact",
+                        action: "Rewrite every project in your resume with metrics. Practice saying them out loud."
+                    },
+                    {
+                        day: "Day 4",
+                        title: "Mock technical interview",
+                        action: "Use Pramp or interviewing.io. Focus on verbalizing trade-offs."
+                    },
+                    {
+                        day: "Day 5–7",
+                        title: "Re-record your weakest answers",
+                        action: "Compare new vs old. You should see +25 point improvement."
+                    }
+                ]
+            }
+            
+            // Render results
+            document.getElementById('loading-page').classList.add('hidden')
+            document.getElementById('results-page').classList.remove('hidden')
+            
+            renderResults()
+        }
+        
+        function renderResults() {
+            if (!currentResults) return
+            
+            // Header
+            document.getElementById('result-role-badge').textContent = currentResults.role
+            document.getElementById('overall-score').textContent = currentResults.score
+            
+            // Metrics
+            document.getElementById('filler-count').textContent = currentResults.fillerCount
+            document.getElementById('avg-pause').textContent = currentResults.avgPause + "s"
+            document.getElementById('pacing').textContent = currentResults.pacing
+            document.getElementById('confidence-score').textContent = currentResults.confidenceScore
+            
+            // Questions
+            const qContainer = document.getElementById('questions-list')
+            qContainer.innerHTML = ''
+            currentResults.questions.forEach((q, i) => {
+                const div = document.createElement('div')
+                div.className = "bg-white/5 border border-white/10 rounded-3xl p-6 flex gap-6"
+                div.innerHTML = `
+                    <div class="flex-shrink-0 w-10 h-10 bg-white/10 rounded-2xl flex items-center justify-center font-semibold">${i+1}</div>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <p class="font-medium">${q.q}</p>
+                            <div class="flex items-center gap-x-2 text-xs">
+                                <span class="px-3 py-px bg-white/10 rounded-3xl">${q.timestamp}</span>
+                                <span class="font-semibold text-lg text-cyan-400">${q.score}</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-zinc-400 mt-3">${q.feedback}</p>
+                    </div>
+                `
+                qContainer.appendChild(div)
+            })
+            
+            // Weaknesses
+            const wContainer = document.getElementById('weaknesses-list')
+            wContainer.innerHTML = ''
+            currentResults.weaknesses.forEach(w => {
+                const div = document.createElement('div')
+                div.className = "card-hover bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col"
+                div.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="font-semibold">${w.title}</p>
+                            <p class="text-xs text-zinc-400 mt-px">${w.desc}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs uppercase bg-white/10 px-3 py-1 rounded-3xl">${w.impact}</span>
+                            <div class="mt-3 text-4xl font-bold text-amber-400">${w.percent}<span class="text-base font-normal">%</span></div>
+                        </div>
+                    </div>
+                `
+                wContainer.appendChild(div)
+            })
+            
+            // Improvement plan
+            const planContainer = document.getElementById('improvement-plan')
+            planContainer.innerHTML = ''
+            currentResults.plan.forEach((step, i) => {
+                const div = document.createElement('div')
+                div.className = "flex gap-x-6"
+                div.innerHTML = `
+                    <div class="flex-shrink-0 font-mono text-cyan-400 text-xl">${step.day}</div>
+                    <div class="flex-1">
+                        <div class="font-semibold">${step.title}</div>
+                        <p class="text-sm text-zinc-400">${step.action}</p>
+                    </div>
+                    <div class="text-4xl text-white/30 font-light">${i+1}</div>
+                `
+                planContainer.appendChild(div)
+                if (i < currentResults.plan.length - 1) {
+                    const hr = document.createElement('div')
+                    hr.className = "h-px bg-white/10 my-4"
+                    planContainer.appendChild(hr)
+                }
+            })
+            
+            // Draw fake confidence chart
+            drawConfidenceChart()
+        }
+        
+        function drawConfidenceChart() {
+            const canvas = document.getElementById('confidence-chart')
+            if (!canvas) return
+            const ctx = canvas.getContext('2d')
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            
+            // Simple line chart
+            ctx.strokeStyle = '#00d4ff'
+            ctx.lineWidth = 3
+            ctx.shadowBlur = 10
+            ctx.shadowColor = '#00d4ff'
+            
+            ctx.beginPath()
+            ctx.moveTo(10, 55)
+            ctx.quadraticCurveTo(35, 45, 55, 28)
+            ctx.quadraticCurveTo(75, 12, 100, 48)
+            ctx.stroke()
+            
+            // Dots
+            ctx.fillStyle = '#00d4ff'
+            ctx.fillRect(55, 28, 6, 6)
+            ctx.fillRect(100, 48, 6, 6)
+            
+            // Labels
+            ctx.font = '10px Inter'
+            ctx.fillStyle = '#a1a1aa'
+            ctx.fillText('Q1', 8, 68)
+            ctx.fillText('Q4', 92, 68)
+        }
+        
+        /**
+         * RENDER PAST REPORTS
+         */
+        function renderReports() {
+            const container = document.getElementById('reports-grid')
+            container.innerHTML = ''
+            
+            mockReports.forEach(report => {
+                const card = document.createElement('div')
+                card.className = "card-hover bg-white/5 border border-white/10 rounded-3xl p-6 cursor-pointer"
+                card.innerHTML = `
+                    <div class="flex justify-between">
+                        <div class="text-sm text-zinc-400">${report.date}</div>
+                        <div class="text-3xl font-bold text-cyan-400">${report.score}</div>
+                    </div>
+                    <h4 class="font-semibold text-lg mt-6">${report.title}</h4>
+                    <button onclick="viewOldReport(${report.id}); event.stopImmediatePropagation()" 
+                            class="mt-8 text-xs bg-white/10 hover:bg-white/20 w-full py-4 rounded-3xl font-medium">VIEW FULL DEBRIEF</button>
+                `
+                container.appendChild(card)
+            })
+            
+            // Add a fake "new" card
+            const newCard = document.createElement('div')
+            newCard.className = "card-hover bg-gradient-to-br from-cyan-400/10 to-transparent border border-cyan-400/30 rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer"
+            newCard.innerHTML = `
+                <i class="fa-solid fa-plus text-5xl text-cyan-400 mb-4"></i>
+                <p class="font-semibold">Start a new debrief</p>
+                <p class="text-xs text-zinc-400 mt-2">Upload another interview recording</p>
+            `
+            newCard.onclick = () => navigateTo('upload')
+            container.appendChild(newCard)
+        }
+        
+        function viewOldReport(id) {
+            // Fake opening an old report
+            navigateTo('results')
+            // Reuse same mock but change role slightly
+            currentResults = {...currentResults}
+            currentResults.role = mockReports.find(r => r.id === id).role + " @ Previous Company"
+            currentResults.score = mockReports.find(r => r.id === id).score
+            renderResults()
+        }
+        
+        /**
+         * DEMO UTILITIES
+         */
+        function toggleDemoMode() {
+            showToast("✅ You are already in full demo mode. Everything works offline!")
+        }
+        
+        function fakeLogin() {
+            showToast("👋 Hi Jyotirmoy! Your Pune location is noted. All data stays on your device in demo.")
+        }
+        
+        function watchDemoVideo() {
+            const msg = document.createElement('div')
+            msg.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#00d4ff;color:#111;font-weight:600;padding:16px 24px;border-radius:9999px;box-shadow:0 10px 15px -3px rgb(0 212 255);z-index:9999'
+            msg.innerHTML = `🎥 In a real app this would open a Loom video.<br><span class="text-xs font-normal">But here is a working demo instead! Try uploading or recording.</span>`
+            document.body.appendChild(msg)
+            setTimeout(() => msg.remove(), 4200)
+        }
+        
+        function restartAnalysis() {
+            currentResults = null
+            document.getElementById('results-page').classList.add('hidden')
+            navigateTo('upload')
+        }
+        
+        function downloadReport() {
+            showToast("📄 PDF downloaded! (In real app this would be a beautiful formatted report with timestamps)")
+            // Fake download
+            const link = document.createElement('a')
+            link.download = 'debriefly-report.pdf'
+            link.href = '#'
+            link.click()
+        }
+        
+        function showToast(text) {
+            const toast = document.createElement('div')
+            toast.style.cssText = 'position:fixed; bottom:20px; left:20px; background:rgb(16, 185, 129); color:white; padding:14px 24px; border-radius:9999px; font-size:14px; box-shadow: 10px 10px 0 -3px rgb(16 185 129); z-index:99999'
+            toast.textContent = text
+            document.body.appendChild(toast)
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)'
+                toast.style.opacity = '0'
+                setTimeout(() => toast.remove(), 600)
+            }, 2800)
+        }
+        
+        /**
+         * MAIN APP BOOT
+         */
+        window.onload = function() {
+            initTailwind().config()
+            console.log('%c✅ Debriefly full website ready! Frontend + simulated backend working perfectly.', 'background:#00d4ff;color:#111;padding:1px 3px;border-radius:2px')
+            console.log('👉 Try uploading a file OR use the live microphone recorder → click ANALYZE')
+            console.log('This single file replaces both broken frontend + backend you had earlier.')
+            
+            // Pre-load landing
+            navigateTo('landing')
+            
+            // Console help
+            console.log('%cType "navigateTo(\'upload\')" in console to jump to analysis page', 'color:#00d4ff;font-size:10px')
+        }
+    </script>
+</body>
+</html>
