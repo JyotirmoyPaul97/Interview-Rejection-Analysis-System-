@@ -1,5 +1,5 @@
 # 🎮 Interview Rejection Analysis System (IRAS)
-[YOUR LINK HERE!]("interview-rejection-analysis-system.vercel.app")
+[YOUR LINK HERE!](interview-rejection-analysis-system.vercel.app)
 
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
